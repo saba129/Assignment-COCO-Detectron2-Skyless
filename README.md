@@ -12,10 +12,22 @@ Create a **skyless** version of a COCO dataset split: automatically detect the *
   - Side-by-side views (original vs skyless) with updated annotations.
   - A compact **processing report** (success/skip/no-sky, etc.).
 
-## Environment
-- **Notebook:** Google Colab (GPU recommended; CPU works for small subsets)
-- **Core libs:** `detectron2`, `torch/torchvision`, `opencv-python`, `pycocotools`, `numpy`, `matplotlib`, `tqdm`, `pandas`
-- **Tested with:** Torch 2.8.x, CUDA 12.x, Python 3.12 (Colab)
+## Installation
+
+Tested on **Python 3.10 / 3.12**, Torch 2.8, CUDA 12.x (GPU optional).
+
+```bash
+# Clone this repository
+git clone <your-repo-url>
+cd coco-skyless
+
+# Install dependencies
+pip install -r requirements.txt
+# or individually:
+pip install opencv-python pycocotools tqdm numpy pillow pyyaml matplotlib pandas pytz
+pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+pip install 'git+https://github.com/facebookresearch/detectron2.git'
+
 
 ## Data & Folder Layout
 Default root: `BASE=/content/drive/MyDrive/coco-skyless`
@@ -34,13 +46,58 @@ coco-skyless/
    ├─ instances_demo/
    └─ pairs/
 
-## Quickstart (Colab)
-1. Change runtime to GPU (optional).
-2. Run cells in order: install → folders → download COCO → subset → predictors → demos → skyless conversion → validators → report.
+## Usage
 
-## Models & Why Both
-- **Instance** (Mask R-CNN): object-level demos.
-- **Panoptic** (Panoptic FPN): sky detection (stuff class) for cropping.
+1. Open COCO_Skyless_Assignment.ipynb in Google Colab (GPU recommended).
 
+2. (Optional) Change runtime → GPU.
+
+3. Run cells in order:
+
+* Install dependencies
+
+* Prepare folders
+
+* Download COCO val2017
+
+* Build outdoor subset (MAX_IMAGES=50–200)
+
+* Run instance + panoptic predictors
+
+* Skyless conversion → saves cropped images + new JSON
+
+* Validation demos & side-by-side pairs
+Outputs are written to outputs/.
+
+
+## Pipeline Summary
+
+* Instance Segmentation (Mask R-CNN): detects and segments objects (people, cars, etc.)
+
+* Panoptic Segmentation (Panoptic FPN): detects both objects and stuff like sky
+
+* Sky Removal: crop image below the lowest detected sky pixel
+
+* Re-annotation: adjust masks, bounding boxes, areas
+
+## Example Results
+
+* outputs/instance_vs_panoptic.png
+
+* outputs/pairs/…_pair.jpg (side-by-side Original vs Skyless)
+
+## Reporting
+
+Each image is logged with:
+
+* status (ok, no_sky, no_anns, skip_small)
+
+* Skyline cut position
+
+* Kept annotations count
+
+## Authors
+
+Sakineh Abdollahzadeh
 ---
-*Generated: 2025-09-04 17:44 by Sakineh Abdollahzadeh*
+*Generated: 2025-09-04 17:44*
