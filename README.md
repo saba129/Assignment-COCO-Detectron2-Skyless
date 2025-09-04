@@ -54,19 +54,19 @@ coco-skyless/
 
 3. Run cells in order:
 
-* Install dependencies
+- Install dependencies
 
-* Prepare folders
+- Prepare folders
 
-* Download COCO val2017
+- Download COCO val2017
 
-* Build outdoor subset (MAX_IMAGES=50–200)
+- Build outdoor subset (MAX_IMAGES=50–200)
 
-* Run instance + panoptic predictors
+- Run instance + panoptic predictors
 
-* Skyless conversion → saves cropped images + new JSON
+- Skyless conversion → saves cropped images + new JSON
 
-* Validation demos & side-by-side pairs
+- Validation demos & side-by-side pairs
 Outputs are written to outputs/.
 
 
