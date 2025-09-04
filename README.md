@@ -11,7 +11,7 @@ Tested on **Python 3.10 / 3.12**, Torch 2.8, CUDA 12.x (GPU optional).
 
 ```bash
 # Clone this repository
-git clone <your-repo-url>
+git clone <Assignment-COCO-Detectron2-Skyless>
 cd coco-skyless
 
 # Install dependencies
